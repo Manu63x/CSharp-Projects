@@ -1,0 +1,11 @@
+C:\Users\manun\source\repos\Somma\Somma\obj\Debug\Somma.csproj.AssemblyReference.cache
+C:\Users\manun\source\repos\Somma\Somma\obj\Debug\Somma.csproj.SuggestedBindingRedirects.cache
+C:\Users\manun\source\repos\Somma\Somma\obj\Debug\Somma.Form1.resources
+C:\Users\manun\source\repos\Somma\Somma\obj\Debug\Somma.Properties.Resources.resources
+C:\Users\manun\source\repos\Somma\Somma\obj\Debug\Somma.csproj.GenerateResource.cache
+C:\Users\manun\source\repos\Somma\Somma\obj\Debug\Somma.csproj.CoreCompileInputs.cache
+C:\Users\manun\source\repos\Somma\Somma\bin\Debug\Somma.exe.config
+C:\Users\manun\source\repos\Somma\Somma\bin\Debug\Somma.exe
+C:\Users\manun\source\repos\Somma\Somma\bin\Debug\Somma.pdb
+C:\Users\manun\source\repos\Somma\Somma\obj\Debug\Somma.exe
+C:\Users\manun\source\repos\Somma\Somma\obj\Debug\Somma.pdb

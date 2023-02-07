@@ -1,0 +1,17 @@
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\bin\Debug\net6.0-windows\LogCleaner.exe
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\bin\Debug\net6.0-windows\LogCleaner.deps.json
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\bin\Debug\net6.0-windows\LogCleaner.runtimeconfig.json
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\bin\Debug\net6.0-windows\LogCleaner.dll
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\bin\Debug\net6.0-windows\LogCleaner.pdb
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.csproj.AssemblyReference.cache
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.Form1.resources
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.csproj.GenerateResource.cache
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.AssemblyInfoInputs.cache
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.AssemblyInfo.cs
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.csproj.CoreCompileInputs.cache
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.dll
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\refint\LogCleaner.dll
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.pdb
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\LogCleaner.genruntimeconfig.cache
+C:\Users\manun\source\repos\LogCleaner\LogCleaner\obj\Debug\net6.0-windows\ref\LogCleaner.dll

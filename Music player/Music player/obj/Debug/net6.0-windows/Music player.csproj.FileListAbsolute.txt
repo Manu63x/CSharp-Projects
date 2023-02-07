@@ -1,0 +1,26 @@
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\Music player.exe
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\Music player.deps.json
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\Music player.runtimeconfig.json
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\Music player.dll
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\Music player.pdb
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.csproj.AssemblyReference.cache
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music_player.Form1.resources
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.csproj.GenerateResource.cache
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.AssemblyInfoInputs.cache
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.AssemblyInfo.cs
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.csproj.CoreCompileInputs.cache
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.dll
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\refint\Music player.dll
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.pdb
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.genruntimeconfig.cache
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\ref\Music player.dll
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music_player.Properties.Resources.resources
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\NAudio.dll
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\NAudio.Asio.dll
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\NAudio.Core.dll
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\NAudio.Midi.dll
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\NAudio.Wasapi.dll
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\NAudio.WinForms.dll
+C:\Users\manun\source\repos\Music player\Music player\bin\Debug\net6.0-windows\NAudio.WinMM.dll
+C:\Users\manun\source\repos\Music player\Music player\obj\Debug\net6.0-windows\Music player.csproj.CopyComplete

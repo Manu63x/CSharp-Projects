@@ -1,0 +1,11 @@
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\bin\Debug\Calcolatrice.exe.config
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\bin\Debug\Calcolatrice.exe
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\bin\Debug\Calcolatrice.pdb
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\obj\Debug\Calcolatrice.csproj.AssemblyReference.cache
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\obj\Debug\Calcolatrice.csproj.SuggestedBindingRedirects.cache
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\obj\Debug\Calcolatrice.Form1.resources
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\obj\Debug\Calcolatrice.Properties.Resources.resources
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\obj\Debug\Calcolatrice.csproj.GenerateResource.cache
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\obj\Debug\Calcolatrice.csproj.CoreCompileInputs.cache
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\obj\Debug\Calcolatrice.exe
+C:\Users\manun\source\repos\Calcolatrice\Calcolatrice\Calcolatrice\obj\Debug\Calcolatrice.pdb
