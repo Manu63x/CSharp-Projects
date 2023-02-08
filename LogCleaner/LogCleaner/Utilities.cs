@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using System.Globalization;
+using System.IO.Compression;
 
 namespace LogCleaner
 {
@@ -38,7 +39,7 @@ namespace LogCleaner
                         {
                             fi.MoveTo(dest + "\\" + String.Format("{0}-({1})", fi.Name, count++));
                         }
-                        catch(IOException)
+                        catch (IOException)
                         {
 
                         }
@@ -134,6 +135,27 @@ namespace LogCleaner
             }
 
             return totalSizeOfDir;
+        }
+        private bool filterByDate(DateTimePicker dtp1, DateTimePicker dtp2, string fileName)
+        {
+            try
+            {
+                string yearFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 5, 4);
+                string monthFromFileName = fileName.Substring(fileName.IndexOf(yearFromFileName) + 5, 2);
+                string dayFromFileName = fileName.Substring(fileName.IndexOf(monthFromFileName) + 3, 2);
+                Calendar gregorian = new GregorianCalendar();
+                DateTime dt = new DateTime(Int16.Parse(yearFromFileName), Int16.Parse(monthFromFileName), Int16.Parse(dayFromFileName), gregorian);
+                if ((dt.CompareTo(dtp1) == 1) && (dt.CompareTo(dtp2) == 1)) //da fixare con i valori di ritorno di CompareTo -inf<0<+inf
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+
+            }
+            return false;
         }
     }
 }
