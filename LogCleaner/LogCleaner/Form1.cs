@@ -79,6 +79,7 @@ namespace LogCleaner
         {
             if (srcpath != null)
             {
+                /*
                 richTextBox1.Text += "\n" + dateTimePicker1.Value.ToShortDateString();
                 richTextBox1.Text += "\n" + dateTimePicker1.Value.Year.ToString();
                 richTextBox1.Text += "\n" + dateTimePicker1.Value.Month.ToString();
@@ -87,6 +88,7 @@ namespace LogCleaner
                 richTextBox1.Text += "\n" + dateTimePicker2.Value.Year.ToString();
                 richTextBox1.Text += "\n" + dateTimePicker2.Value.Month.ToString();
                 richTextBox1.Text += "\n" + dateTimePicker2.Value.Day.ToString();
+                */
                 DirectoryInfo srcfolder = new DirectoryInfo(srcpath);
                 FileInfo[] f = srcfolder.GetFiles("arkivium.*", SearchOption.AllDirectories);
                 foreach (FileInfo fi in f)
@@ -100,6 +102,8 @@ namespace LogCleaner
                         richTextBox1.Text += "\n" + yearFromFileName;
                         richTextBox1.Text += "\n" + monthFromFileName;
                         richTextBox1.Text += "\n" + dayFromFileName;
+                        Utilities ut = new Utilities(srcpath);
+                        richTextBox1.Text += "\n" + ut.filterByDate(dateTimePicker1.Value, dateTimePicker2.Value, fi.Name).ToString();
                     }
                     catch (ArgumentOutOfRangeException)
                     {

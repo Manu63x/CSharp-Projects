@@ -16,6 +16,11 @@ namespace LogCleaner
             folder = new DirectoryInfo(src);
             dInfoDest = new DirectoryInfo(dest);
         }
+        public Utilities(string src)
+        {
+            this.src = src;
+            this.folder = new DirectoryInfo(src);
+        }
         public void moveFilesTo(string dest) //sposta i file da un path sorgente ad una destinazione
         {
             FileInfo[] f = this.folder.GetFiles("arkivium.*", SearchOption.AllDirectories);
@@ -136,7 +141,7 @@ namespace LogCleaner
 
             return totalSizeOfDir;
         }
-        private bool filterByDate(DateTimePicker dtp1, DateTimePicker dtp2, string fileName)
+        public bool filterByDate(DateTime dt1, DateTime dt2, string fileName)
         {
             try
             {
@@ -144,8 +149,8 @@ namespace LogCleaner
                 string monthFromFileName = fileName.Substring(fileName.IndexOf(yearFromFileName) + 5, 2);
                 string dayFromFileName = fileName.Substring(fileName.IndexOf(monthFromFileName) + 3, 2);
                 Calendar gregorian = new GregorianCalendar();
-                DateTime dt = new DateTime(Int16.Parse(yearFromFileName), Int16.Parse(monthFromFileName), Int16.Parse(dayFromFileName), gregorian);
-                if ((dt.CompareTo(dtp1) == 1) && (dt.CompareTo(dtp2) == 1)) //da fixare con i valori di ritorno di CompareTo -inf<0<+inf
+                DateTime dt = new DateTime(Int32.Parse(yearFromFileName), Int32.Parse(monthFromFileName), Int32.Parse(dayFromFileName), gregorian);
+                if ((dt.CompareTo(dt1) >= 0) && (dt.CompareTo(dt2) <= 0)) //da fixare con i valori di ritorno di CompareTo -inf<0<+inf
                 {
                     return true;
                 }
