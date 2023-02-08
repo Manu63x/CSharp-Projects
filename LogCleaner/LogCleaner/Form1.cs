@@ -41,7 +41,7 @@ namespace LogCleaner
                 if (DialogResult.Yes == MessageBox.Show("Vuoi davvero eliminare i file?", "Conferma", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                 {
                     richTextBox1.Text += "\n------Eliminazione file------";
-                    ut.deleteFiles(richTextBox1);
+                    ut.deleteFiles(dateTimePicker1.Value, dateTimePicker2.Value, richTextBox1);
                     richTextBox1.Text += "\n-----------------------------------------------------------------";
                 }
             }

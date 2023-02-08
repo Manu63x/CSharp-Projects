@@ -92,13 +92,16 @@ namespace LogCleaner
                 fi.Delete();
             }
         }
-        public void deleteFiles(RichTextBox r) // elimina i file specificati
+        public void deleteFiles(DateTime datetime1, DateTime datetime2, RichTextBox r) // elimina i file specificati
         {
             FileInfo[] f = this.folder.GetFiles("arkivium.*", SearchOption.AllDirectories);
             foreach (FileInfo fi in f)
             {
-                fi.Delete();
-                r.Text += "\n" + fi;
+                if(filterByDate(datetime1, datetime2, fi.Name) == true)
+                {
+                    fi.Delete();
+                    r.Text += "\n" + fi;
+                }
             }
         }
         public long filesNum() // ritorna il numero di files presenti
