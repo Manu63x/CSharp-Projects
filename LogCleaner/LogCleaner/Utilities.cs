@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using System.IO.Compression;
 
 namespace LogCleaner
@@ -141,7 +142,7 @@ namespace LogCleaner
 
             return totalSizeOfDir;
         }
-        public bool filterByDate(DateTime dt1, DateTime dt2, string fileName)
+        public bool filterByDate(DateTime dateTime1, DateTime dateTime2, string fileName)
         {
             try
             {
@@ -149,12 +150,15 @@ namespace LogCleaner
                 string monthFromFileName = fileName.Substring(fileName.IndexOf(yearFromFileName) + 5, 2);
                 string dayFromFileName = fileName.Substring(fileName.IndexOf(monthFromFileName) + 3, 2);
                 Calendar gregorian = new GregorianCalendar();
-                DateTime dt = new DateTime(Int32.Parse(yearFromFileName), Int32.Parse(monthFromFileName), Int32.Parse(dayFromFileName), gregorian);
-                if ((dt.CompareTo(dt1) >= 0) && (dt.CompareTo(dt2) <= 0)) //da fixare con i valori di ritorno di CompareTo -inf<0<+inf
+                DateTime dt = new DateTime(int.Parse(yearFromFileName), int.Parse(monthFromFileName), int.Parse(dayFromFileName), 0, 0, 0, gregorian);
+                //se passo direttamente dateTime1 e dateTime2 avranno l'ora di quando vengono premuti e se con il CompareTo dt e datetime1 coincidono come data restituirà comunque false, istanzio quindi dt1 che avrà h, min e sec uguali a dt
+                DateTime dt1 = new DateTime(dateTime1.Year, dateTime1.Month, dateTime1.Day, 0, 0, 0, gregorian);
+                DateTime dt2 = new DateTime(dateTime2.Year, dateTime2.Month, dateTime2.Day, 0, 0, 0, gregorian);
+                Debug.WriteLine(dt.ToString() + "\n" + dt1.ToString() + "\n" + dt2.ToString());
+                if ((dt.CompareTo(dt1) >= 0) && (dt.CompareTo(dt2) <= 0))
                 {
                     return true;
                 }
-                return false;
             }
             catch (ArgumentOutOfRangeException)
             {

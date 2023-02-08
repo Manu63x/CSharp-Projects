@@ -35,38 +35,41 @@ namespace LogCleaner
             {
                 MessageBox.Show("Nessuna cartella sorgente selezionata.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else if (radioButton3.Checked)
+            {
+                Utilities ut = new Utilities(srcpath);
+                if (DialogResult.Yes == MessageBox.Show("Vuoi davvero eliminare i file?", "Conferma", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                {
+                    richTextBox1.Text += "\n------Eliminazione file------";
+                    ut.deleteFiles(richTextBox1);
+                    richTextBox1.Text += "\n-----------------------------------------------------------------";
+                }
+            }
+            else if (radioButton4.Checked)
+            {
+                Utilities ut = new Utilities(srcpath);
+                MessageBox.Show("File trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeBytes() + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeBytes() + " byte" + "\n-----------------------------------------------------------------";
+            }
             else if (destpath == null)
             {
                 MessageBox.Show("Nessuna cartella di destinazione selezionata.", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                Utilities ut = new Utilities(srcpath, destpath);
                 if (radioButton1.Checked)
                 {
+                    Utilities ut = new Utilities(srcpath, destpath);
                     ut.moveFilesTo(destpath);
                     MessageBox.Show("File spostati con successo in " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     richTextBox1.Text += "\n------Spostamento file------" + "\nSorgente: " + srcpath + "\nDestinazione: " + destpath + "\n-----------------------------------------------------------------";
                 }
                 else if (radioButton2.Checked)
                 {
+                    Utilities ut = new Utilities(srcpath, destpath);
                     ut.compressAndMove(destpath);
                     MessageBox.Show("File compressi e inviati a " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //richTextBox1.Text += ;
-                }
-                else if (radioButton3.Checked)
-                {
-                    if (DialogResult.Yes == MessageBox.Show("Vuoi davvero eliminare i file?", "Conferma", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-                    {
-                        richTextBox1.Text += "\n------Eliminazione file------";
-                        ut.deleteFiles(richTextBox1);
-                        richTextBox1.Text += "\n-----------------------------------------------------------------";
-                    }
-                }
-                else if (radioButton4.Checked)
-                {
-                    MessageBox.Show("File trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeBytes() + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeBytes() + " byte" + "\n-----------------------------------------------------------------";
                 }
                 else
                 {
