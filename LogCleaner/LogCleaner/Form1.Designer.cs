@@ -47,10 +47,14 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -60,7 +64,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(14, 16);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(882, 76);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(917, 76);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // button1
@@ -159,10 +163,10 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(477, 169);
+            this.richTextBox1.Location = new System.Drawing.Point(14, 17);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(419, 276);
+            this.richTextBox1.Size = new System.Drawing.Size(427, 267);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
             // 
@@ -173,7 +177,7 @@
             this.flowLayoutPanel2.Location = new System.Drawing.Point(17, 453);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(879, 56);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(454, 56);
             this.flowLayoutPanel2.TabIndex = 4;
             // 
             // button2
@@ -209,6 +213,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.dateTimePicker2);
             this.groupBox2.Controls.Add(this.dateTimePicker1);
             this.groupBox2.Controls.Add(this.label4);
@@ -254,16 +259,45 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Da:";
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(185, 296);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(98, 47);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Pulisci log";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.richTextBox1);
+            this.panel1.Controls.Add(this.button5);
+            this.panel1.Location = new System.Drawing.Point(477, 161);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(454, 348);
+            this.panel1.TabIndex = 8;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(7, 172);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(126, 24);
+            this.checkBox1.TabIndex = 15;
+            this.checkBox1.Text = "Seleziona tutti";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(911, 525);
+            this.ClientSize = new System.Drawing.Size(943, 525);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.flowLayoutPanel2);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -279,6 +313,7 @@
             this.flowLayoutPanel2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,5 +340,8 @@
         private Label label4;
         private DateTimePicker dateTimePicker1;
         private DateTimePicker dateTimePicker2;
+        private Button button5;
+        private Panel panel1;
+        private CheckBox checkBox1;
     }
 }

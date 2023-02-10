@@ -2,8 +2,8 @@ namespace LogCleaner
 {
     public partial class Form1 : Form
     {
-        string srcpath = null;
-        string destpath = null;
+        string srcpath;
+        string destpath;
         public Form1()
         {
             InitializeComponent();
@@ -18,7 +18,6 @@ namespace LogCleaner
                 label1.Text = "Cartella sorgente selezionata: " + srcpath;
             }
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog diag = new FolderBrowserDialog();
@@ -28,7 +27,6 @@ namespace LogCleaner
                 label2.Text = "Cartella di destinazione selezionata: " + destpath;
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (srcpath == null)
@@ -40,16 +38,34 @@ namespace LogCleaner
                 Utilities ut = new Utilities(srcpath);
                 if (DialogResult.Yes == MessageBox.Show("Vuoi davvero eliminare i file?", "Conferma", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                 {
-                    richTextBox1.Text += "\n------Eliminazione file------";
-                    ut.deleteFiles(dateTimePicker1.Value, dateTimePicker2.Value, richTextBox1);
-                    richTextBox1.Text += "\n-----------------------------------------------------------------";
+                    if (checkBox1.Checked)
+                    {
+                        richTextBox1.Text += "\n------Eliminazione file------";
+                        ut.deleteFiles(richTextBox1);
+                        richTextBox1.Text += "\n-----------------------------------------------------------------";
+                    }
+                    else
+                    {
+                        richTextBox1.Text += "\n------Eliminazione file------";
+                        ut.deleteFilesByDate(dateTimePicker1.Value, dateTimePicker2.Value, richTextBox1);
+                        richTextBox1.Text += "\n-----------------------------------------------------------------";
+                    }
                 }
             }
             else if (radioButton4.Checked)
             {
                 Utilities ut = new Utilities(srcpath);
-                MessageBox.Show("File trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeBytes() + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeBytes() + " byte" + "\n-----------------------------------------------------------------";
+                if (checkBox1.Checked)
+                {
+                    MessageBox.Show("File trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSize() + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSize() + " byte" + "\n-----------------------------------------------------------------";
+                }
+                else
+                {
+                    int filesNum = ut.filesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value);
+                    MessageBox.Show("File trovati: " + filesNum + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value) + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.filesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value) + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value) + " byte" + "\n-----------------------------------------------------------------";
+                }
             }
             else if (destpath == null)
             {
@@ -57,19 +73,36 @@ namespace LogCleaner
             }
             else
             {
+                Utilities ut = new Utilities(srcpath, destpath);
                 if (radioButton1.Checked)
                 {
-                    Utilities ut = new Utilities(srcpath, destpath);
-                    ut.moveFilesTo(destpath);
-                    MessageBox.Show("File spostati con successo in " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    richTextBox1.Text += "\n------Spostamento file------" + "\nSorgente: " + srcpath + "\nDestinazione: " + destpath + "\n-----------------------------------------------------------------";
+                    if (checkBox1.Checked)
+                    {
+                        ut.moveFilesTo();
+                        MessageBox.Show("File spostati con successo in " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        richTextBox1.Text += "\n------Spostamento file------" + "\nSorgente: " + srcpath + "\nDestinazione: " + destpath + "\n-----------------------------------------------------------------";
+                    }
+                    else
+                    {
+                        ut.moveFilesToByDate(dateTimePicker1.Value, dateTimePicker2.Value);
+                        MessageBox.Show("File spostati con successo in " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        richTextBox1.Text += "\n------Spostamento file------" + "\nSorgente: " + srcpath + "\nDestinazione: " + destpath + "\n-----------------------------------------------------------------";
+                    }
                 }
                 else if (radioButton2.Checked)
                 {
-                    Utilities ut = new Utilities(srcpath, destpath);
-                    ut.compressAndMove(destpath);
-                    MessageBox.Show("File compressi e inviati a " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //richTextBox1.Text += ;
+                    if (checkBox1.Checked)
+                    {
+                        ut.compressAndMove();
+                        MessageBox.Show("File compressi e inviati a " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        richTextBox1.Text += "\n------Compressione File------" + "\nDa: " + srcpath + " A: " + destpath + "\n-----------------------------------------------------------------";
+                    }
+                    else
+                    {
+                        //ut.compressAndMove(dateTimePicker1, dateTimePicker2)
+                        //MessageBox.Show("File compressi e inviati a " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //richTextBox1.Text += "\n------Compressione File------" + "\nDa: " + srcpath + " A: " + destpath + "\n-----------------------------------------------------------------";
+                    }
                 }
                 else
                 {
@@ -77,43 +110,13 @@ namespace LogCleaner
                 }
             }
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            if (srcpath != null)
-            {
-                /*
-                richTextBox1.Text += "\n" + dateTimePicker1.Value.ToShortDateString();
-                richTextBox1.Text += "\n" + dateTimePicker1.Value.Year.ToString();
-                richTextBox1.Text += "\n" + dateTimePicker1.Value.Month.ToString();
-                richTextBox1.Text += "\n" + dateTimePicker1.Value.Day.ToString();
-                richTextBox1.Text += "\n" + dateTimePicker2.Value.ToShortDateString();
-                richTextBox1.Text += "\n" + dateTimePicker2.Value.Year.ToString();
-                richTextBox1.Text += "\n" + dateTimePicker2.Value.Month.ToString();
-                richTextBox1.Text += "\n" + dateTimePicker2.Value.Day.ToString();
-                */
-                DirectoryInfo srcfolder = new DirectoryInfo(srcpath);
-                FileInfo[] f = srcfolder.GetFiles("arkivium.*", SearchOption.AllDirectories);
-                foreach (FileInfo fi in f)
-                {
-                    richTextBox1.Text += "\n" + fi.Name;
-                    try
-                    {
-                        string yearFromFileName = fi.Name.Substring(fi.Name.IndexOf(".log.") + 5, 4);
-                        string monthFromFileName = fi.Name.Substring(fi.Name.IndexOf(yearFromFileName) + 5, 2);
-                        string dayFromFileName = fi.Name.Substring(fi.Name.IndexOf(monthFromFileName) + 3, 2);
-                        richTextBox1.Text += "\n" + yearFromFileName;
-                        richTextBox1.Text += "\n" + monthFromFileName;
-                        richTextBox1.Text += "\n" + dayFromFileName;
-                        Utilities ut = new Utilities(srcpath);
-                        richTextBox1.Text += "\n" + ut.filterByDate(dateTimePicker1.Value, dateTimePicker2.Value, fi.Name).ToString();
-                    }
-                    catch (ArgumentOutOfRangeException)
-                    {
-
-                    }
-                }
-            }
+            
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Text = "";
         }
     }
 }

@@ -22,9 +22,9 @@ namespace LogCleaner
             this.src = src;
             this.folder = new DirectoryInfo(src);
         }
-        public void moveFilesTo(string dest) //sposta i file da un path sorgente ad una destinazione
+        public void moveFilesTo() //sposta i file da un path sorgente ad una destinazione
         {
-            FileInfo[] f = this.folder.GetFiles("arkivium.*", SearchOption.AllDirectories);
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
             foreach (FileInfo fi in f)
             {
                 try
@@ -33,7 +33,7 @@ namespace LogCleaner
                 }
                 catch (IOException)
                 {
-                    FileInfo[] f2 = this.dInfoDest.GetFiles("arkivium.*", SearchOption.AllDirectories);
+                    FileInfo[] f2 = this.dInfoDest.GetFiles("*arkivium.*", SearchOption.AllDirectories);
                     int count = 1;
                     foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
                     {
@@ -52,9 +52,43 @@ namespace LogCleaner
                     }
                 }
             }
+        }
+        public void moveFilesToByDate(DateTime datetime1, DateTime datetime2) //sposta i file da un path sorgente ad una destinazione filtrandoli se compresi fra 2 date
+        {
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+            foreach (FileInfo fi in f)
+            {
+                if (filterByDate(datetime1, datetime2, fi.Name) == true)
+                {
+                    try
+                    {
+                        fi.MoveTo(dest + "\\" + fi.Name);
+                    }
+                    catch (IOException)
+                    {
+                        FileInfo[] f2 = this.dInfoDest.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+                        int count = 1;
+                        foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
+                        {
+                            while ((String.Format(fi.Name + "-({0})", count)).Equals(fi2.Name))
+                            {
+                                count++;
+                            }
+                            try
+                            {
+                                fi.MoveTo(dest + "\\" + String.Format("{0}-({1})", fi.Name, count++));
+                            }
+                            catch (IOException)
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
 
         }
-        public void compressAndMove(string dest) // sposta i file da un path sorgente ad una destinazione comprimendoli in un archivio zip
+        public void compressAndMove() //sposta i file da un path sorgente ad una destinazione comprimendoli in un archivio zip
         {
             DateTime date = DateTime.Now;
             string formattedString = String.Format("logCompression-{0}-{1}-{2}", date.Year, date.Month, date.Day);
@@ -68,7 +102,6 @@ namespace LogCleaner
                 int count = 1;
                 foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
                 {
-
                     while ((String.Format(formattedString + "-({0}).zip", count)).Equals(fi2.Name))
                     {
                         count++;
@@ -84,20 +117,33 @@ namespace LogCleaner
                 }
             }
         }
+        public void compressAndMoveByDate(DateTime datetime1, DateTime datetime2)
+        {
+
+        }
         public void deleteFiles() // elimina i file specificati
         {
-            FileInfo[] f = this.folder.GetFiles("arkivium.*", SearchOption.AllDirectories);
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
             foreach (FileInfo fi in f)
             {
                 fi.Delete();
             }
         }
-        public void deleteFiles(DateTime datetime1, DateTime datetime2, RichTextBox r) // elimina i file specificati
+        public void deleteFiles(RichTextBox r) //uguale a deleteFiles ma richiede come parametro un richtextbox dove stampare i path dei file eliminati
         {
-            FileInfo[] f = this.folder.GetFiles("arkivium.*", SearchOption.AllDirectories);
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
             foreach (FileInfo fi in f)
             {
-                if(filterByDate(datetime1, datetime2, fi.Name) == true)
+                fi.Delete();
+                r.Text += "\n" + fi;
+            }
+        }
+        public void deleteFilesByDate(DateTime datetime1, DateTime datetime2, RichTextBox r) // elimina i file filtrati dalla funzione filterbydate stampando i path su un richtextbox 
+        {
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+            foreach (FileInfo fi in f)
+            {
+                if (filterByDate(datetime1, datetime2, fi.Name) == true)
                 {
                     fi.Delete();
                     r.Text += "\n" + fi;
@@ -106,58 +152,68 @@ namespace LogCleaner
         }
         public long filesNum() // ritorna il numero di files presenti
         {
-            FileInfo[] f = this.folder.GetFiles("arkivium.*", SearchOption.AllDirectories);
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
             return f.Length;
+        }
+        public int filesNumByDate(DateTime datetime1, DateTime datetime2)
+        {
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+            int num = 0;
+            foreach (FileInfo fi in f)
+            {
+                if (filterByDate(datetime1, datetime2, fi.Name) == true)
+                {
+                    num++;
+                }
+            }
+            return num;
         }
         public long folderNum() // ritorna il numero di cartelle trovate
         {
             return this.folder.GetDirectories().Length;
         }
-        public long folderSizeBytes()
+        public long folderSize()
         {
-            return folderSize(this.folder);
+            long size = 0;
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+            foreach (FileInfo fi in f)
+            {
+                size += fi.Length;
+            }
+            return size;
         }
         public long folderSizeKb()
         {
-            return folderSize(this.folder) / 1024;
+            return folderSize() / 1024;
         }
         public long folderSizeMb()
         {
-            return (folderSize(this.folder) / 1024) / 1024;
+            return (folderSize() / 1024) / 1024;
         }
-        private static long folderSize(DirectoryInfo folder)
+        public long folderSizeByDate(DateTime datetime1, DateTime datetime2)
         {
-            long totalSizeOfDir = 0;
-
-            FileInfo[] allFiles = folder.GetFiles("arkivium.*", SearchOption.AllDirectories);
-
-            foreach (FileInfo file in allFiles)
+            long size = 0;
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+            foreach (FileInfo fi in f)
             {
-                totalSizeOfDir += file.Length;
+                if (filterByDate(datetime1, datetime2, fi.Name) == true)
+                {
+                    size += fi.Length;
+                }
             }
-
-            DirectoryInfo[] subFolders = folder.GetDirectories();
-
-            foreach (DirectoryInfo dir in subFolders)
-            {
-                totalSizeOfDir += folderSize(dir);
-            }
-
-            return totalSizeOfDir;
+            return size;
         }
         public bool filterByDate(DateTime dateTime1, DateTime dateTime2, string fileName)
         {
             try
             {
                 string yearFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 5, 4);
-                string monthFromFileName = fileName.Substring(fileName.IndexOf(yearFromFileName) + 5, 2);
-                string dayFromFileName = fileName.Substring(fileName.IndexOf(monthFromFileName) + 3, 2);
+                string monthFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 10, 2);
+                string dayFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 13, 2);
                 Calendar gregorian = new GregorianCalendar();
                 DateTime dt = new DateTime(int.Parse(yearFromFileName), int.Parse(monthFromFileName), int.Parse(dayFromFileName), 0, 0, 0, gregorian);
-                //se passo direttamente dateTime1 e dateTime2 avranno l'ora di quando vengono premuti e se con il CompareTo dt e datetime1 coincidono come data restituirà comunque false, istanzio quindi dt1 che avrà h, min e sec uguali a dt
                 DateTime dt1 = new DateTime(dateTime1.Year, dateTime1.Month, dateTime1.Day, 0, 0, 0, gregorian);
                 DateTime dt2 = new DateTime(dateTime2.Year, dateTime2.Month, dateTime2.Day, 0, 0, 0, gregorian);
-                Debug.WriteLine(dt.ToString() + "\n" + dt1.ToString() + "\n" + dt2.ToString());
                 if ((dt.CompareTo(dt1) >= 0) && (dt.CompareTo(dt2) <= 0))
                 {
                     return true;
