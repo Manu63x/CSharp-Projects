@@ -62,8 +62,7 @@ namespace LogCleaner
                 }
                 else
                 {
-                    int filesNum = ut.filesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value);
-                    MessageBox.Show("File trovati: " + filesNum + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value) + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("File trovati: " + ut.filesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value) + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value) + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.filesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value) + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value) + " byte" + "\n-----------------------------------------------------------------";
                 }
             }
@@ -99,9 +98,9 @@ namespace LogCleaner
                     }
                     else
                     {
-                        //ut.compressAndMove(dateTimePicker1, dateTimePicker2)
-                        //MessageBox.Show("File compressi e inviati a " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //richTextBox1.Text += "\n------Compressione File------" + "\nDa: " + srcpath + " A: " + destpath + "\n-----------------------------------------------------------------";
+                        ut.compressAndMoveByDate(dateTimePicker1.Value, dateTimePicker2.Value);
+                        MessageBox.Show("File compressi e inviati a " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        richTextBox1.Text += "\n------Compressione File------" + "\nDa: " + srcpath + " A: " + destpath + "\n-----------------------------------------------------------------";
                     }
                 }
                 else
@@ -117,6 +116,19 @@ namespace LogCleaner
         private void button5_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if(srcpath!= null && destpath != null)
+            {
+                string tmp = "";
+                tmp = srcpath;
+                srcpath = destpath;
+                destpath = tmp;
+                label1.Text = "Cartella sorgente selezionata: " + srcpath;
+                label2.Text = "Cartella di destinazione selezionata: " + destpath;
+            }
         }
     }
 }

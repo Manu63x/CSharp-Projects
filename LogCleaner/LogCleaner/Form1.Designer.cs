@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -43,13 +44,14 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button6 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -92,7 +94,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 105);
+            this.label1.Location = new System.Drawing.Point(154, 109);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(263, 20);
             this.label1.TabIndex = 1;
@@ -205,7 +207,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 129);
+            this.label2.Location = new System.Drawing.Point(154, 135);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(306, 20);
             this.label2.TabIndex = 5;
@@ -226,6 +228,16 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Range date";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(7, 172);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(126, 24);
+            this.checkBox1.TabIndex = 15;
+            this.checkBox1.Text = "Seleziona tutti";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // dateTimePicker2
             // 
@@ -278,15 +290,15 @@
             this.panel1.Size = new System.Drawing.Size(454, 348);
             this.panel1.TabIndex = 8;
             // 
-            // checkBox1
+            // button6
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 172);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(126, 24);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "Seleziona tutti";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.button6.Location = new System.Drawing.Point(17, 99);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(131, 56);
+            this.button6.TabIndex = 9;
+            this.button6.Text = "Inverti percorsi";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1
             // 
@@ -294,6 +306,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(943, 525);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label2);
@@ -302,6 +315,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -343,5 +357,6 @@
         private Button button5;
         private Panel panel1;
         private CheckBox checkBox1;
+        private Button button6;
     }
 }

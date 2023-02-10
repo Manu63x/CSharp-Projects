@@ -119,6 +119,65 @@ namespace LogCleaner
         }
         public void compressAndMoveByDate(DateTime datetime1, DateTime datetime2)
         {
+            DateTime date = DateTime.Now;
+            string formattedString = String.Format("logCompression-{0}-{1}-{2}", date.Year, date.Month, date.Day);
+            Directory.CreateDirectory(dest + "\\tmp");
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+            foreach (FileInfo fi in f)
+            {
+                if (filterByDate(datetime1, datetime2, fi.Name) == true)
+                {
+                    try
+                    {
+                        fi.MoveTo(dest + "\\tmp\\" + fi.Name);
+                    }
+                    catch (IOException)
+                    {
+                        FileInfo[] f2 = this.dInfoDest.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+                        int count = 1;
+                        foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
+                        {
+                            while ((String.Format(fi.Name + "-({0})", count)).Equals(fi2.Name))
+                            {
+                                count++;
+                            }
+                            try
+                            {
+                                fi.MoveTo(dest + "\\" + String.Format("{0}-({1})", fi.Name, count++));
+                            }
+                            catch (IOException)
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
+            try
+            {
+                ZipFile.CreateFromDirectory(dest + "\\tmp", dest + "\\" + formattedString + ".zip");
+            }
+            catch (IOException)
+            {
+                FileInfo[] f2 = this.dInfoDest.GetFiles("logCompression-*", SearchOption.AllDirectories);
+                int count = 1;
+                foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
+                {
+                    while ((String.Format(formattedString + "-({0}).zip", count)).Equals(fi2.Name))
+                    {
+                        count++;
+                    }
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(dest + "\\tmp", dest + "\\" + String.Format(formattedString + "-({0}).zip", count));
+                    }
+                    catch (IOException)
+                    {
+
+                    }
+                }
+                Directory.Delete(dest + "\\tmp", true);
+            }
 
         }
         public void deleteFiles() // elimina i file specificati
@@ -182,14 +241,6 @@ namespace LogCleaner
             }
             return size;
         }
-        public long folderSizeKb()
-        {
-            return folderSize() / 1024;
-        }
-        public long folderSizeMb()
-        {
-            return (folderSize() / 1024) / 1024;
-        }
         public long folderSizeByDate(DateTime datetime1, DateTime datetime2)
         {
             long size = 0;
@@ -207,16 +258,23 @@ namespace LogCleaner
         {
             try
             {
-                string yearFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 5, 4);
-                string monthFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 10, 2);
-                string dayFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 13, 2);
-                Calendar gregorian = new GregorianCalendar();
-                DateTime dt = new DateTime(int.Parse(yearFromFileName), int.Parse(monthFromFileName), int.Parse(dayFromFileName), 0, 0, 0, gregorian);
-                DateTime dt1 = new DateTime(dateTime1.Year, dateTime1.Month, dateTime1.Day, 0, 0, 0, gregorian);
-                DateTime dt2 = new DateTime(dateTime2.Year, dateTime2.Month, dateTime2.Day, 0, 0, 0, gregorian);
-                if ((dt.CompareTo(dt1) >= 0) && (dt.CompareTo(dt2) <= 0))
+                try
                 {
-                    return true;
+                    string yearFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 5, 4);
+                    string monthFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 10, 2);
+                    string dayFromFileName = fileName.Substring(fileName.IndexOf(".log.") + 13, 2);
+                    Calendar gregorian = new GregorianCalendar();
+                    DateTime dt = new DateTime(int.Parse(yearFromFileName), int.Parse(monthFromFileName), int.Parse(dayFromFileName), 0, 0, 0, gregorian);
+                    DateTime dt1 = new DateTime(dateTime1.Year, dateTime1.Month, dateTime1.Day, 0, 0, 0, gregorian);
+                    DateTime dt2 = new DateTime(dateTime2.Year, dateTime2.Month, dateTime2.Day, 0, 0, 0, gregorian);
+                    if ((dt.CompareTo(dt1) >= 0) && (dt.CompareTo(dt2) <= 0))
+                    {
+                        return true;
+                    }
+                }
+                catch(FormatException)
+                {
+                    return false;
                 }
             }
             catch (ArgumentOutOfRangeException)
