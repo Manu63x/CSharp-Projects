@@ -33,23 +33,21 @@ namespace LogCleaner
                 }
                 catch (IOException)
                 {
-                    FileInfo[] f2 = this.dInfoDest.GetFiles("*arkivium.*", SearchOption.AllDirectories);
                     int count = 1;
-                    foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
+                    bool exit = false;
+                    while(exit != true)
                     {
-                        while ((String.Format(fi.Name + "-({0})", count)).Equals(fi2.Name))
-                        {
-                            count++;
-                        }
                         try
                         {
                             fi.MoveTo(dest + "\\" + String.Format("{0}-({1})", fi.Name, count++));
+                            exit = true;
                         }
                         catch (IOException)
                         {
-
+                                
                         }
                     }
+                    exit = false;
                 }
             }
         }
@@ -66,23 +64,21 @@ namespace LogCleaner
                     }
                     catch (IOException)
                     {
-                        FileInfo[] f2 = this.dInfoDest.GetFiles("*arkivium.*", SearchOption.AllDirectories);
                         int count = 1;
-                        foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
+                        bool exit = false;
+                        while (exit != true)
                         {
-                            while ((String.Format(fi.Name + "-({0})", count)).Equals(fi2.Name))
-                            {
-                                count++;
-                            }
                             try
                             {
                                 fi.MoveTo(dest + "\\" + String.Format("{0}-({1})", fi.Name, count++));
+                                exit = true;
                             }
                             catch (IOException)
                             {
 
                             }
                         }
+                        exit = false;
                     }
                 }
             }
@@ -98,29 +94,28 @@ namespace LogCleaner
             }
             catch (IOException)
             {
-                FileInfo[] f2 = this.dInfoDest.GetFiles("logCompression-*", SearchOption.AllDirectories);
                 int count = 1;
-                foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
+                bool exit = false;
+                while(exit != true)
                 {
-                    while ((String.Format(formattedString + "-({0}).zip", count)).Equals(fi2.Name))
-                    {
-                        count++;
-                    }
                     try
                     {
-                        ZipFile.CreateFromDirectory(src, dest + "\\" + String.Format(formattedString + "-({0}).zip", count));
+                        ZipFile.CreateFromDirectory(src, dest + "\\" + String.Format(formattedString + "-({0}).zip", count++));
+                        exit = true;
                     }
                     catch (IOException)
                     {
 
                     }
                 }
+                exit = false;
             }
         }
         public void compressAndMoveByDate(DateTime datetime1, DateTime datetime2)
         {
             DateTime date = DateTime.Now;
             string formattedString = String.Format("logCompression-{0}-{1}-{2}", date.Year, date.Month, date.Day);
+            //sostituire con copia e elimina i file col filtro deleteByFilter
             Directory.CreateDirectory(dest + "\\tmp");
             FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
             foreach (FileInfo fi in f)
@@ -129,27 +124,25 @@ namespace LogCleaner
                 {
                     try
                     {
-                        fi.MoveTo(dest + "\\tmp\\" + fi.Name);
+                        fi.CopyTo(dest + "\\tmp\\" + fi.Name);
                     }
                     catch (IOException)
                     {
-                        FileInfo[] f2 = this.dInfoDest.GetFiles("*arkivium.*", SearchOption.AllDirectories);
                         int count = 1;
-                        foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
+                        bool exit = false;
+                        while(exit != true)
                         {
-                            while ((String.Format(fi.Name + "-({0})", count)).Equals(fi2.Name))
-                            {
-                                count++;
-                            }
                             try
                             {
-                                fi.MoveTo(dest + "\\" + String.Format("{0}-({1})", fi.Name, count++));
+                                fi.CopyTo(dest + "\\tmp\\" + String.Format("{0}-({1})", fi.Name, count++));
+                                exit = true;
                             }
                             catch (IOException)
                             {
-
+                                count++;
                             }
                         }
+                        exit = false;
                     }
                 }
             }
@@ -159,23 +152,21 @@ namespace LogCleaner
             }
             catch (IOException)
             {
-                FileInfo[] f2 = this.dInfoDest.GetFiles("logCompression-*", SearchOption.AllDirectories);
                 int count = 1;
-                foreach (FileInfo fi2 in f2) //rinomino il file se esiste già
+                bool exit = false;
+                while(exit != true)
                 {
-                    while ((String.Format(formattedString + "-({0}).zip", count)).Equals(fi2.Name))
-                    {
-                        count++;
-                    }
                     try
                     {
-                        ZipFile.CreateFromDirectory(dest + "\\tmp", dest + "\\" + String.Format(formattedString + "-({0}).zip", count));
+                        ZipFile.CreateFromDirectory(dest + "\\tmp", dest + "\\" + String.Format(formattedString + "-({0}).zip", count++));
+                        exit = true;
                     }
                     catch (IOException)
                     {
 
                     }
                 }
+                exit = false;
                 Directory.Delete(dest + "\\tmp", true);
             }
 
@@ -206,6 +197,17 @@ namespace LogCleaner
                 {
                     fi.Delete();
                     r.Text += "\n" + fi;
+                }
+            }
+        }
+        public void deleteFilesByDate(DateTime datetime1, DateTime datetime2) // elimina i file filtrati dalla funzione filterbydate stampando i path su un richtextbox 
+        {
+            FileInfo[] f = this.folder.GetFiles("*arkivium.*", SearchOption.AllDirectories);
+            foreach (FileInfo fi in f)
+            {
+                if (filterByDate(datetime1, datetime2, fi.Name) == true)
+                {
+                    fi.Delete();
                 }
             }
         }
