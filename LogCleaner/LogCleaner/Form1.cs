@@ -41,13 +41,13 @@ namespace LogCleaner
                     if (checkBox1.Checked)
                     {
                         richTextBox1.Text += "\n------Eliminazione file------";
-                        ut.deleteFiles(richTextBox1);
+                        ut.DeleteFiles(richTextBox1);
                         richTextBox1.Text += "\n-----------------------------------------------------------------";
                     }
                     else
                     {
                         richTextBox1.Text += "\n------Eliminazione file------";
-                        ut.deleteFilesByDate(dateTimePicker1.Value, dateTimePicker2.Value, richTextBox1);
+                        ut.DeleteFilesByDate(dateTimePicker1.Value, dateTimePicker2.Value, richTextBox1);
                         richTextBox1.Text += "\n-----------------------------------------------------------------";
                     }
                 }
@@ -57,13 +57,13 @@ namespace LogCleaner
                 Utilities ut = new Utilities(srcpath);
                 if (checkBox1.Checked)
                 {
-                    MessageBox.Show("File trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSize() + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.filesNum() + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSize() + " byte" + "\n-----------------------------------------------------------------";
+                    MessageBox.Show("File trovati: " + ut.FilesNum() + "\nCartelle trovate: " + ut.FolderNum() + "\nGrandezza cartella: " + ut.FolderSize(), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.FilesNum() + "\nCartelle trovate: " + ut.FolderNum() + "\nGrandezza cartella: " + ut.FolderSize() + "\n-----------------------------------------------------------------";
                 }
                 else
                 {
-                    MessageBox.Show("File trovati: " + ut.filesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value) + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value) + " byte", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.filesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value) + "\nCartelle trovate: " + ut.folderNum() + "\nGrandezza cartella: " + ut.folderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value) + " byte" + "\n-----------------------------------------------------------------";
+                    MessageBox.Show("File trovati: " + ut.FilesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value) + "\nCartelle trovate: " + ut.FolderNum() + "\nGrandezza cartella: " + ut.FolderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    richTextBox1.Text += "\n------Analisi di " + srcpath + "------" + "\nFile trovati: " + ut.FilesNumByDate(dateTimePicker1.Value, dateTimePicker2.Value) + "\nCartelle trovate: " + ut.FolderNum() + "\nGrandezza cartella: " + ut.FolderSizeByDate(dateTimePicker1.Value, dateTimePicker2.Value) + "\n-----------------------------------------------------------------";
                 }
             }
             else if (destpath == null)
@@ -77,13 +77,19 @@ namespace LogCleaner
                 {
                     if (checkBox1.Checked)
                     {
-                        ut.moveFilesTo();
+                        if (ut.MoveFilesTo() == true)
+                        {
+                            MessageBox.Show("Alcuni file non sono stati sopostati perché duplicati.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         MessageBox.Show("File spostati con successo in " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         richTextBox1.Text += "\n------Spostamento file------" + "\nSorgente: " + srcpath + "\nDestinazione: " + destpath + "\n-----------------------------------------------------------------";
                     }
                     else
                     {
-                        ut.moveFilesToByDate(dateTimePicker1.Value, dateTimePicker2.Value);
+                        if (ut.MoveFilesToByDate(dateTimePicker1.Value, dateTimePicker2.Value) == true)
+                        {
+                            MessageBox.Show("Alcuni file non sono stati sopostati perché duplicati.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         MessageBox.Show("File spostati con successo in " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         richTextBox1.Text += "\n------Spostamento file------" + "\nSorgente: " + srcpath + "\nDestinazione: " + destpath + "\n-----------------------------------------------------------------";
                     }
@@ -92,13 +98,13 @@ namespace LogCleaner
                 {
                     if (checkBox1.Checked)
                     {
-                        ut.compressAndMove();
+                        ut.CompressAndMove();
                         MessageBox.Show("File compressi e inviati a " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         richTextBox1.Text += "\n------Compressione File------" + "\nDa: " + srcpath + " A: " + destpath + "\n-----------------------------------------------------------------";
                     }
                     else
                     {
-                        ut.compressAndMoveByDate(dateTimePicker1.Value, dateTimePicker2.Value);
+                        ut.CompressAndMoveByDate(dateTimePicker1.Value, dateTimePicker2.Value);
                         MessageBox.Show("File compressi e inviati a " + destpath, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         richTextBox1.Text += "\n------Compressione File------" + "\nDa: " + srcpath + " A: " + destpath + "\n-----------------------------------------------------------------";
                     }
@@ -111,7 +117,7 @@ namespace LogCleaner
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -120,7 +126,7 @@ namespace LogCleaner
 
         private void button6_Click(object sender, EventArgs e)
         {
-            if(srcpath!= null && destpath != null)
+            if (srcpath != null && destpath != null)
             {
                 string tmp = "";
                 tmp = srcpath;
