@@ -4,6 +4,7 @@ namespace LogCleaner
     {
         string srcpath;
         string destpath;
+        Utilities ut = new Utilities();
         public Form1()
         {
             InitializeComponent();
@@ -35,26 +36,42 @@ namespace LogCleaner
             }
             else if (radioButton3.Checked)
             {
-                Utilities ut = new Utilities(srcpath);
+                ut.setSrc(srcpath);
                 if (DialogResult.Yes == MessageBox.Show("Vuoi davvero eliminare i file?", "Conferma", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                 {
                     if (checkBox1.Checked)
                     {
                         richTextBox1.Text += "\n------Eliminazione file------";
-                        ut.DeleteFiles(richTextBox1);
+                        bool exit = ut.DeleteFiles(richTextBox1);
+                        if (exit)
+                        {
+                            MessageBox.Show("Eliminazione dei file completata.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Procedura di eliminazione interrotta.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                         richTextBox1.Text += "\n-----------------------------------------------------------------";
                     }
                     else
                     {
                         richTextBox1.Text += "\n------Eliminazione file------";
-                        ut.DeleteFilesByDate(dateTimePicker1.Value, dateTimePicker2.Value, richTextBox1);
+                        bool exit = ut.DeleteFilesByDate(dateTimePicker1.Value, dateTimePicker2.Value, richTextBox1);
+                        if (exit)
+                        {
+                            MessageBox.Show("Eliminazione dei file completata.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Procedura di eliminazione interrotta.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                         richTextBox1.Text += "\n-----------------------------------------------------------------";
                     }
                 }
             }
             else if (radioButton4.Checked)
             {
-                Utilities ut = new Utilities(srcpath);
+                ut .setSrc(srcpath);
                 if (checkBox1.Checked)
                 {
                     MessageBox.Show("File trovati: " + ut.FilesNum() + "\nCartelle trovate: " + ut.FolderNum() + "\nGrandezza cartella: " + ut.FolderSize(), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -72,7 +89,8 @@ namespace LogCleaner
             }
             else
             {
-                Utilities ut = new Utilities(srcpath, destpath);
+                ut.setSrc(srcpath);
+                ut.setDest(destpath);
                 if (radioButton1.Checked)
                 {
                     if (checkBox1.Checked)
@@ -117,7 +135,7 @@ namespace LogCleaner
         }
         private void button3_Click(object sender, EventArgs e)
         {
-
+            ut.cancel = true;
         }
         private void button5_Click(object sender, EventArgs e)
         {
